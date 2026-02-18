@@ -1,0 +1,8 @@
+
+{
+  "name": "Mahira Solutions - B2B Industrial Manufacturing",
+  "description": "A robust B2B industrial platform for precision engineering and advanced printing solutions, featuring enquiry-based conversion and scalable information architecture.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
