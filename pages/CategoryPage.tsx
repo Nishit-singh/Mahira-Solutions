@@ -32,22 +32,25 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ vertical, onNavigateProduct
     : "https://images.unsplash.com/photo-1599056377754-06830554c5e3?auto=format&fit=crop&q=80&w=1600";
 
   return (
-    <div className={`animate-in fade-in duration-500 ${isMetal ? 'bg-metal-bg' : 'bg-printing-bg'}`}>
+    <div className={`animate-in fade-in duration-500 ${isMetal ? 'bg-metal-bg' : 'bg-printing-bg'} dark:bg-deep-charcoal`}>
 
       {/* Hero: Vertical Specific Header */}
-      <section className={`relative h-[500px] flex items-center overflow-hidden transition-colors duration-500 ${isMetal ? 'bg-deep-charcoal' : 'bg-white'}`}>
+      <section className={`relative h-[400px] flex items-center overflow-hidden transition-colors duration-500 ${isMetal ? 'bg-deep-charcoal' : 'bg-slate-industrial'}`}>
+        {!isMetal && <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1596495577610-8b1a3d1b3128?auto=format&fit=crop&q=80&w=1600')] bg-cover bg-center pointer-events-none mix-blend-overlay"></div>}
         {isMetal && <div className="absolute inset-0 opacity-[0.03] bg-blueprint pointer-events-none"></div>}
         <img
           src={heroImg}
-          alt="Vertical Hub"
+          alt=""
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isMetal ? 'opacity-30 mix-blend-luminosity' : 'opacity-20'}`}
         />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
-            <span className={`inline-block px-4 py-1.5 ${accentBg} text-white text-[10px] font-black uppercase tracking-[0.3em] rounded mb-6`}>
-              {isMetal ? 'Precision Fabrication Unit' : 'Identity Systems Unit'}
-            </span>
-            <h1 className={`text-6xl md:text-8xl font-black ${isMetal ? 'text-white' : 'text-deep-charcoal'} mb-8 leading-[1.1] tracking-tighter ${isMetal ? 'font-display' : 'font-sans'}`}>
+            {isMetal && (
+              <span className={`inline-block px-4 py-1.5 ${accentBg} text-white text-[10px] font-black uppercase tracking-[0.3em] rounded mb-6`}>
+                Precision Fabrication Unit
+              </span>
+            )}
+            <h1 className={`text-4xl md:text-6xl font-black text-white mb-6 leading-[1.1] tracking-tighter ${isMetal ? 'font-display' : 'font-sans'}`}>
               {isMetal ? 'HARDWARE' : 'IDENTITY'}<br />
               <span className={accentColor}>SOLUTIONS.</span>
             </h1>
@@ -61,9 +64,9 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ vertical, onNavigateProduct
       </section>
 
       {/* Sub-Nav / Filter Bar */}
-      <div className={`sticky top-20 z-40 border-b transition-colors ${isMetal ? 'bg-deep-charcoal border-white/5' : 'bg-white border-gray-100 shadow-sm'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex overflow-x-auto gap-12 py-6 no-scrollbar">
+      <div className={`sticky top-20 z-40 border-b transition-colors ${isMetal ? 'bg-deep-charcoal border-white/5' : 'bg-white dark:bg-deep-charcoal border-gray-100 dark:border-white/5 shadow-sm'}`}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex overflow-x-auto gap-8 py-4 no-scrollbar">
             <button
               onClick={() => setActiveCategoryId(null)}
               className={`text-[10px] font-black uppercase tracking-[0.25em] transition-all whitespace-nowrap ${activeCategoryId === null ? (isMetal ? 'text-industrial-orange border-b-2 border-industrial-orange' : 'text-primary border-b-2 border-primary') : 'text-gray-400'}`}
@@ -84,20 +87,20 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ vertical, onNavigateProduct
       </div>
 
       {/* Product Discovery Sections */}
-      <section className={`py-32 ${isMetal ? 'bg-blueprint pb-48' : 'bg-white'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className={`py-20 ${isMetal ? 'bg-blueprint pb-28' : 'bg-white dark:bg-deep-charcoal'}`}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {displayCategories.map(category => {
             const categoryProducts = verticalProducts.filter(p => p.category === category.id);
             if (categoryProducts.length === 0) return null;
 
             return (
-              <div key={category.id} className="mb-32 last:mb-0">
-                <div className={`flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 ${isMetal ? 'border-l-[12px] border-industrial-orange/40' : 'border-l-4 border-primary'} pl-8`}>
+              <div key={category.id} className="mb-20 last:mb-0">
+                <div className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 ${isMetal ? 'border-l-[12px] border-industrial-orange/40' : 'border-l-4 border-primary'} pl-6`}>
                   <div className="max-w-2xl">
-                    <h2 className={`text-4xl font-black text-deep-charcoal uppercase tracking-tighter mb-4 ${isMetal ? 'font-display' : 'font-sans'}`}>
+                    <h2 className={`text-3xl font-black text-deep-charcoal dark:text-white uppercase tracking-tighter mb-2 ${isMetal ? 'font-display' : 'font-sans'}`}>
                       {category.title}
                     </h2>
-                    <p className={`text-lg ${isMetal ? 'text-gray-500 font-mono text-sm' : 'text-gray-400 font-medium'}`}>
+                    <p className={`text-base ${isMetal ? 'text-gray-500 font-mono text-sm' : 'text-gray-400 font-medium'}`}>
                       {category.description}
                     </p>
                   </div>
@@ -109,7 +112,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ vertical, onNavigateProduct
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-10">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
                   {categoryProducts.map(product => (
                     <ProductCard
                       key={product.id}
@@ -126,9 +129,9 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ vertical, onNavigateProduct
       </section>
 
       {/* Dynamic Trust Bar */}
-      <section className={`${isMetal ? 'bg-deep-charcoal text-white' : 'bg-gray-50'} py-24 transition-colors duration-500`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-12 text-center items-center">
+      <section className={`${isMetal ? 'bg-deep-charcoal text-white' : 'bg-gray-50 dark:bg-slate-industrial'} py-16 transition-colors duration-500`}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8 text-center items-center">
             <div className="space-y-4">
               <p className={`text-[40px] font-black tracking-tighter leading-none ${accentColor}`}>
                 {isMetal ? '±0.005' : '1M+'}

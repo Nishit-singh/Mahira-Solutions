@@ -20,7 +20,7 @@ export interface Product {
   galleryUrls?: string[];
   badges?: string[];
   specs: Specification[];
-  applications: string[]; // Added: target industries/use cases
+  applications?: string[]; // target industries/use cases
 }
 
 export interface Category {
