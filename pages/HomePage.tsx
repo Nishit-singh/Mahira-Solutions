@@ -11,8 +11,8 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ onNavigate, onNavigateProduct, onNavigateEnquiry }) => {
-  const printingFeatured = PRODUCTS.filter(p => p.vertical === BusinessVertical.PRINTING).slice(0, 5);
-  const metalFeatured = PRODUCTS.filter(p => p.vertical === BusinessVertical.METAL).slice(0, 5);
+  const printingFeatured = PRODUCTS.filter(p => p && p.vertical === BusinessVertical.PRINTING).slice(0, 5);
+  const metalFeatured = PRODUCTS.filter(p => p && p.vertical === BusinessVertical.METAL).slice(0, 5);
 
   return (
     <div className="animate-in fade-in duration-700">

@@ -18,7 +18,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, onNavigateEnquiry, o
   const accentBg = isMetal ? 'bg-industrial-orange' : 'bg-primary';
   const fontClass = isMetal ? 'font-display' : 'font-sans';
 
-  const related = PRODUCTS.filter(p => p.id !== product.id && (p.category === product.category || p.vertical === product.vertical)).slice(0, 6);
+  const related = PRODUCTS.filter(p => p && p.id !== product.id && (p.category === product.category || p.vertical === product.vertical)).slice(0, 6);
 
   // Mock gallery images if not present
   const galleryImages = product.galleryUrls || [

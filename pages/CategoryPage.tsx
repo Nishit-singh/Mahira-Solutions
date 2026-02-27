@@ -14,8 +14,8 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ vertical, onNavigateProduct
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
 
   const isMetal = vertical === BusinessVertical.METAL;
-  const filteredCategories = CATEGORIES.filter(c => c.vertical === vertical);
-  const verticalProducts = PRODUCTS.filter(p => p.vertical === vertical);
+  const filteredCategories = CATEGORIES.filter(c => c && c.vertical === vertical);
+  const verticalProducts = PRODUCTS.filter(p => p && p.vertical === vertical);
 
   // Filter logic: If a category is selected, only show that one.
   const displayCategories = activeCategoryId

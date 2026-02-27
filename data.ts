@@ -684,8 +684,8 @@ export const PRODUCTS: Product[] = [
     shortDescription: 'Premium Desktop ID Card Print Solution',
     fullDescription: 'High-quality Desktop ID Card Print Solution for industrial and corporate needs.',
     vertical: BusinessVertical.PRINTING,
-    category: 'id-card-holders-accessories',
-    imageUrl: 'https://images.unsplash.com/photo-1626609235264-164478207d27?auto=format&fit=crop&q=80&w=600',
+    category: 'dtf-printing-services',
+    imageUrl: 'https://images.unsplash.com/photo-1544531896-b8471c77871c?auto=format&fit=crop&q=80&w=600',
     badges: ['PREMIUM'],
     specs: [
       { label: 'Material', value: 'Standard' },
@@ -693,7 +693,7 @@ export const PRODUCTS: Product[] = [
       { label: 'Quality', value: 'Premium' }
     ],
     applications: ['Corporate Identity', 'Events', 'Schools']
-  },,,
+  },
 
   // --- METAL VERTICAL (5 PRODUCTS) ---
   {
@@ -1191,7 +1191,7 @@ export const PRODUCTS: Product[] = [
       { label: 'Quality', value: 'High' }
     ],
     applications: ['Mobile Shops', 'Customization Kiosks', 'Electronics']
-  },,,,,
+  }, , , , ,
   {
     id: 'travel-bags',
     name: 'Travel Bags',
