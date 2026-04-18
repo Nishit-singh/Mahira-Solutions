@@ -22,20 +22,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     }
   };
 
-  const isMetal = path.includes('metal');
   const isPrinting = path.includes('printing');
   const isHome = path === '/';
   const isAbout = path === '/about';
   const isContact = path === '/contact';
 
   // Theme context derived from active view
-  const accentColor = isMetal ? 'text-industrial-orange' : 'text-primary';
-  const accentBg = isMetal ? 'bg-industrial-orange' : 'bg-primary';
+  const accentColor = 'text-primary';
+  const accentBg = 'bg-primary';
 
   return (
     <div className="min-h-screen flex flex-col font-sans vertical-transition">
       {/* Header */}
-      <header className={`sticky top-0 z-50 bg-deep-charcoal/95 backdrop-blur-sm border-b transition-colors duration-500 ${isMetal ? 'border-industrial-orange/20 shadow-[0_4px_20px_-5px_rgba(242,108,13,0.1)]' : 'border-white/10 shadow-sm'}`}>
+      <header className={`sticky top-0 z-50 bg-deep-charcoal/95 backdrop-blur-sm border-b transition-colors duration-500 border-white/10 shadow-sm`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
           <div className="flex items-center gap-4 sm:gap-10">
             <Link
@@ -43,9 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               className="flex items-center gap-2 sm:gap-2.5 group shrink-0"
             >
               <div className={`w-10 h-10 ${accentBg} rounded-lg flex items-center justify-center group-hover:rotate-6 transition-all duration-300 shadow-lg shadow-black/5`}>
-                <span className="material-symbols-outlined text-white text-2xl">
-                  {isMetal ? 'engineering' : 'precision_manufacturing'}
-                </span>
+                  precision_manufacturing
               </div>
               <div className="flex flex-col items-start leading-none hidden sm:flex">
                 <span className="text-xl font-black tracking-tighter text-white transition-colors">MAHIRA</span>
@@ -68,12 +65,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${isPrinting ? 'text-primary' : 'text-white/70'}`}
               >
                 Printing
-              </Link>
-              <Link
-                to="/metal"
-                className={`text-sm font-bold uppercase tracking-widest hover:text-industrial-orange transition-colors ${isMetal ? 'text-industrial-orange' : 'text-white/70'}`}
-              >
-                Metal Parts
               </Link>
               <div className="h-4 w-px bg-white/20"></div>
               <Link
@@ -142,13 +133,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             >
               Printing
             </Link>
-            <Link
-              to="/metal"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={`text-2xl font-black uppercase tracking-tighter text-left ${isMetal ? 'text-industrial-orange' : 'text-gray-300'}`}
-            >
-              Metal Parts
-            </Link>
             <div className="h-px w-20 bg-gray-100 dark:bg-white/10 my-2"></div>
             <Link
               to="/about"
@@ -182,14 +166,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className={`${isMetal ? 'bg-[#0a0c0e]' : 'bg-deep-charcoal'} text-white pt-16 pb-12 transition-colors duration-500`}>
+      <footer className={`bg-deep-charcoal text-white pt-16 pb-12 transition-colors duration-500`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div className="col-span-1 md:col-span-1">
               <div className="flex items-center gap-2 mb-8">
-                <span className={`material-symbols-outlined ${accentColor} text-3xl`}>
-                  {isMetal ? 'engineering' : 'precision_manufacturing'}
-                </span>
+                  precision_manufacturing
                 <h2 className="text-2xl font-black tracking-tighter">MAHIRA</h2>
               </div>
               <p className="text-gray-400 text-[13px] leading-relaxed mb-8 font-medium">
@@ -203,15 +185,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <li><Link to="/printing" className="hover:text-white transition-colors">Identity Media</Link></li>
                 <li><Link to="/printing" className="hover:text-white transition-colors">RFID Tagging</Link></li>
                 <li><Link to="/printing" className="hover:text-white transition-colors">Safety Print</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className={`font-black text-[10px] uppercase tracking-[0.3em] ${isMetal ? 'text-industrial-orange' : 'text-gray-500'} mb-8`}>Metal Division</h4>
-              <ul className="space-y-4 text-[13px] text-gray-400 font-bold uppercase tracking-widest">
-                <li><Link to="/metal" className="hover:text-white transition-colors">CNC Milling</Link></li>
-                <li><Link to="/metal" className="hover:text-white transition-colors">Laser Fab</Link></li>
-                <li><Link to="/metal" className="hover:text-white transition-colors">Die Cast Hub</Link></li>
               </ul>
             </div>
 

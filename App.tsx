@@ -50,13 +50,6 @@ const App: React.FC = () => {
               onNavigateEnquiry={handleNavigateEnquiry}
             />
           } />
-          <Route path="/metal" element={
-            <CategoryPage
-              vertical={BusinessVertical.METAL}
-              onNavigateProduct={handleNavigateProduct}
-              onNavigateEnquiry={handleNavigateEnquiry}
-            />
-          } />
           <Route path="/product/:id" element={<ProductWrapper onNavigateEnquiry={handleNavigateEnquiry} onNavigateProduct={handleNavigateProduct} />} />
           <Route path="/enquiry" element={<EnquiryWrapper />} />
           <Route path="/about" element={<AboutPage />} />
@@ -97,7 +90,7 @@ const ProductWrapper: React.FC<{
       product={product}
       onNavigateEnquiry={onNavigateEnquiry}
       onNavigateProduct={onNavigateProduct}
-      onBack={() => navigate(product.vertical === BusinessVertical.METAL ? '/metal' : '/printing')}
+      onBack={() => navigate('/printing')}
     />
   );
 };

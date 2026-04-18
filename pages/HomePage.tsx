@@ -12,7 +12,6 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ onNavigate, onNavigateProduct, onNavigateEnquiry }) => {
   const printingFeatured = PRODUCTS.filter(p => p && p.vertical === BusinessVertical.PRINTING).slice(0, 5);
-  const metalFeatured = PRODUCTS.filter(p => p && p.vertical === BusinessVertical.METAL).slice(0, 5);
 
   return (
     <div className="animate-in fade-in duration-700">
@@ -28,7 +27,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onNavigateProduct, onNa
               <span className="text-primary">Advanced Printing.</span>
             </h1>
             <p className="text-base text-gray-500 dark:text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-10 font-medium transition-colors">
-              Mahira Solutions Enterprises delivers high-end B2B solutions across industrial printing and precision metal manufacturing verticals.
+              Mahira Solutions Enterprises delivers high-end B2B solutions across industrial printing verticals.
             </p>
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <button
@@ -37,12 +36,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onNavigateProduct, onNa
               >
                 Explore Printing Hub <span className="material-symbols-outlined">print</span>
               </button>
-              <button
-                onClick={() => onNavigate('metal')}
-                className="bg-gray-100 dark:bg-white/10 text-deep-charcoal dark:text-white font-black py-4 px-10 rounded-full flex items-center gap-3 hover:bg-gray-200 dark:hover:bg-white/20 transition-all uppercase text-xs tracking-widest"
-              >
-                Explore Metal Hub <span className="material-symbols-outlined">settings_suggest</span>
-              </button>
+
             </div>
           </div>
           <div className="relative">
@@ -136,42 +130,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onNavigateProduct, onNa
         </div>
       </section>
 
-      {/* Discovery Row: Metal Solutions */}
-      <section className="py-24 bg-white dark:bg-deep-charcoal border-y border-gray-50 dark:border-white/5 transition-colors duration-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <p className="text-primary font-black text-[10px] uppercase tracking-[0.4em] mb-2">Division 02</p>
-              <h2 className="text-2xl font-black text-deep-charcoal dark:text-white uppercase tracking-tighter transition-colors">Precision Metal Fabrication</h2>
-            </div>
-            <button
-              onClick={() => onNavigate('metal')}
-              className="text-[11px] font-black text-primary uppercase tracking-[0.2em] flex items-center gap-2 group"
-            >
-              Browse Full Manufacturing Catalog <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
-            </button>
-          </div>
 
-          <div className="flex overflow-x-auto gap-8 pb-12 no-scrollbar snap-x snap-mandatory">
-            {metalFeatured.map(product => (
-              <div key={product.id} className="min-w-[280px] md:min-w-[320px] snap-start">
-                <ProductCard
-                  product={product}
-                  onViewDetails={onNavigateProduct}
-                  onQuickEnquiry={onNavigateEnquiry}
-                />
-              </div>
-            ))}
-            <button
-              onClick={() => onNavigate('metal')}
-              className="min-w-[200px] flex flex-col items-center justify-center bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 hover:border-primary hover:text-primary transition-all group"
-            >
-              <span className="material-symbols-outlined text-4xl mb-4 group-hover:scale-110 transition-transform">arrow_forward</span>
-              <span className="text-xs font-black uppercase tracking-widest">View All</span>
-            </button>
-          </div>
-        </div>
-      </section>
 
       {/* Institutional Trust Hub */}
       <section className="py-24 bg-deep-charcoal text-white">
@@ -179,7 +138,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onNavigateProduct, onNa
           <div className="grid lg:grid-cols-3 gap-16">
             {[
               { title: 'ISO 9001:2015', icon: 'verified', desc: 'Global quality management standards applied to every manufacturing batch.' },
-              { title: 'CMM Verification', icon: 'biotech', desc: 'Coordinate Measuring Machine testing ensures micron-level precision for all metal parts.' },
+              { title: 'Quality Assurance', icon: 'biotech', desc: 'Rigorous testing ensures exceptional quality for all products.' },
               { title: 'Scalable Logistics', icon: 'local_shipping', desc: 'Ready for high-volume B2B contract fulfillment with dedicated account management.' }
             ].map((item, i) => (
               <div key={i} className="flex flex-col">

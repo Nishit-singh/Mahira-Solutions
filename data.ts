@@ -64,21 +64,7 @@ export const CATEGORIES: Category[] = [
     vertical: BusinessVertical.PRINTING,
     description: 'High-quality DTF printing and heat press applications.',
     imageUrl: 'https://images.unsplash.com/photo-1563968743333-044cef8004c3?auto=format&fit=crop&q=80&w=800',
-  },
-  {
-    id: 'metal-cnc',
-    title: 'Precision Machining',
-    vertical: BusinessVertical.METAL,
-    description: 'Multi-axis CNC milling and turning solutions.',
-    imageUrl: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&q=80&w=800',
-  },
-  {
-    id: 'metal-fab',
-    title: 'Sheet Metal Fabrication',
-    vertical: BusinessVertical.METAL,
-    description: 'Laser cutting, bending, and robotic welding.',
-    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800',
-  },
+  }
 ];
 
 export const PRODUCTS: Product[] = [
@@ -693,88 +679,6 @@ export const PRODUCTS: Product[] = [
       { label: 'Quality', value: 'Premium' }
     ],
     applications: ['Corporate Identity', 'Events', 'Schools']
-  },
-
-  // --- METAL VERTICAL (5 PRODUCTS) ---
-  {
-    id: 'titan-mill-turbine',
-    name: 'TITAN-MILL Turbine Blade',
-    shortDescription: 'Inconel 718 Superalloy 5-Axis Precision Milling',
-    fullDescription: 'High-performance turbine component machined from Inconel 718 billet. Optimized for extreme temperature resistance and mechanical stress in modern power generation systems. Full NIST-traceable inspection reports included.',
-    vertical: BusinessVertical.METAL,
-    category: 'metal-cnc',
-    imageUrl: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&q=80&w=600',
-    badges: ['TOLERANCE ±0.002', 'FAA COMPLIANT'],
-    specs: [
-      { label: 'Material', value: 'Inconel 718 Superalloy' },
-      { label: 'Processing', value: '5-Axis Simultaneous Milling' },
-      { label: 'Surface', value: 'Ra 0.4 Micron Finish' }
-    ],
-    applications: ['Jet Engines', 'Gas Turbines', 'Nuclear Power Plant Cooling']
-  },
-  {
-    id: 'precision-fold-rack',
-    name: 'PRECISION-FOLD Server Enclosure',
-    shortDescription: '19" Rackmount Chassis, Cold Rolled Steel (CRS)',
-    fullDescription: 'Custom-engineered 19" rackmount enclosures for mission-critical IT infrastructure. Utilizing multi-stage CNC bending and precision laser cutting to ensure perfect component alignment and airflow optimization.',
-    vertical: BusinessVertical.METAL,
-    category: 'metal-fab',
-    imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=600',
-    badges: ['NEMA 3R', 'EMC SHIELDED'],
-    specs: [
-      { label: 'Material', value: '1.5mm Cold Rolled Steel' },
-      { label: 'Coating', value: 'Antistatic Powder Coat' },
-      { label: 'Mounting', value: 'EIA-310-E Standard' }
-    ],
-    applications: ['Data Centers', 'Telecomm Hubs', 'Edge Computing Units']
-  },
-  {
-    id: 'steel-sync-frame',
-    name: 'STEEL-SYNC Robotic Frame',
-    shortDescription: 'Heavy-Duty Structural H-Beam Weldment',
-    fullDescription: 'Primary structural frame for automated production lines. Features robotic GMAW (Mig) welding for deep penetration and structural integrity. Stress-relieved and sandblasted for industrial longevity.',
-    vertical: BusinessVertical.METAL,
-    category: 'metal-fab',
-    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=600',
-    badges: ['AWS CERTIFIED', 'WELD LOGS'],
-    specs: [
-      { label: 'Structure', value: 'ASTM A36 Mild Steel' },
-      { label: 'Weld Spec', value: 'AWS D1.1 Structural' },
-      { label: 'Load Cap', value: '15,000 kg Dynamic' }
-    ],
-    applications: ['Automotive Assembly', 'Material Handling', 'Factory Mezzanines']
-  },
-  {
-    id: 'opti-cut-panel',
-    name: 'OPTI-CUT Perforated Panel',
-    shortDescription: 'Micro-Laser Patterned Stainless Steel Filter',
-    fullDescription: 'High-precision perforated panels for industrial filtration and acoustic dampening. Utilizing fiber laser technology to achieve hole diameters as small as 0.1mm with zero thermal distortion.',
-    vertical: BusinessVertical.METAL,
-    category: 'metal-fab',
-    imageUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600',
-    badges: ['316L SS', 'BURR-FREE'],
-    specs: [
-      { label: 'Aperture', value: '0.1mm - 50.0mm' },
-      { label: 'Material', value: 'Marine-grade Stainless' },
-      { label: 'Transparency', value: 'Adjustable 5% - 75%' }
-    ],
-    applications: ['Chemical Processing', 'Architectural Facades', 'Food Processing']
-  },
-  {
-    id: 'max-torque-shaft',
-    name: 'MAX-TORQUE Power Shaft',
-    shortDescription: 'Hardened 4140 Steel Turning & Splining',
-    fullDescription: 'Critical power-train component manufactured from 4140 alloy steel. Induction hardened and precision ground on CNC cylindrical grinders to maintain concentricity within 0.005mm.',
-    vertical: BusinessVertical.METAL,
-    category: 'metal-cnc',
-    imageUrl: 'https://images.unsplash.com/photo-1565106430482-8f6e74349ca1?auto=format&fit=crop&q=80&w=600',
-    badges: ['4140 HARDENED', 'SPLINE RATED'],
-    specs: [
-      { label: 'Hardness', value: 'HRC 55-60' },
-      { label: 'Concentricity', value: '0.005mm TIR' },
-      { label: 'Processing', value: 'Swiss-style CNC Turning' }
-    ],
-    applications: ['Heavy Machinery', 'Wind Turbine Gearboxes', 'Mining Drills']
   },
   {
     id: 'direct-to-film-printing',

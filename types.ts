@@ -1,7 +1,6 @@
 
 export enum BusinessVertical {
-  PRINTING = 'PRINTING',
-  METAL = 'METAL'
+  PRINTING = 'PRINTING'
 }
 
 export interface Specification {
