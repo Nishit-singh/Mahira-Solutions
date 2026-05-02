@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --emerald: #006B5E;
+  --emerald-dark: #004D44;
+  --emerald-light: #E0F7F4;
+  --mint: #B2DFDB;
+  --off-white: #F9FBFA;
+  --text-dark: #0A1F1C;
+  --text-muted: #546E6A;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-text-dark bg-off-white overflow-x-hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-black uppercase tracking-tight;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 lg:px-12 py-32;
+  }
+
+  .premium-heading {
+    @apply text-7xl md:text-9xl font-black text-emerald leading-[0.8] mb-10 uppercase;
+  }
+
+  .btn-primary {
+    @apply bg-emerald text-white text-[11px] font-black uppercase tracking-widest px-10 py-5 rounded-xl hover:bg-emerald-dark hover:-translate-y-1 transition-all shadow-2xl shadow-emerald/30;
+  }
+
+  .btn-outline {
+    @apply border-2 border-emerald text-emerald text-[11px] font-black uppercase tracking-widest px-10 py-5 rounded-xl hover:bg-emerald hover:text-white hover:-translate-y-1 transition-all shadow-xl shadow-emerald/5;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-emerald-light shadow-lg rounded-none;
+  }
+}
+
+/* Custom Utilities */
+.bg-geometric {
+  background-color: var(--off-white);
+  background-image: linear-gradient(30deg, var(--emerald-light) 12%, transparent 12.5%, transparent 87%, var(--emerald-light) 87.5%, var(--emerald-light)),
+    linear-gradient(150deg, var(--emerald-light) 12%, transparent 12.5%, transparent 87%, var(--emerald-light) 87.5%, var(--emerald-light)),
+    linear-gradient(30deg, var(--emerald-light) 12%, transparent 12.5%, transparent 87%, var(--emerald-light) 87.5%, var(--emerald-light)),
+    linear-gradient(150deg, var(--emerald-light) 12%, transparent 12.5%, transparent 87%, var(--emerald-light) 87.5%, var(--emerald-light)),
+    linear-gradient(60deg, var(--emerald-light) 25%, transparent 25.5%, transparent 75%, var(--emerald-light) 75%, var(--emerald-light)),
+    linear-gradient(60deg, var(--emerald-light) 25%, transparent 25.5%, transparent 75%, var(--emerald-light) 75%, var(--emerald-light));
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  opacity: 0.1;
+}
+
+.skew-card {
+  clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
