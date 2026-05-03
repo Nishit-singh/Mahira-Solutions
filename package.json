@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite\" \"node api/index.js\"",
+    "dev": "concurrently \"vite\" \"node api/index.cjs\"",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

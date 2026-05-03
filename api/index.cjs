@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const db = require('./db');
+const db = require('./db.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 5000;

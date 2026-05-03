@@ -7,10 +7,25 @@ const dbPath = isProduction ? path.join('/tmp', 'mahira_ecommerce.db') : path.jo
 
 if (isProduction && !fs.existsSync(dbPath)) {
   try {
-    const bundledDbPath = path.join(process.cwd(), 'api', 'mahira_ecommerce.db');
-    if (fs.existsSync(bundledDbPath)) {
-      fs.copyFileSync(bundledDbPath, dbPath);
-      console.log('Production DB Initialized from Bundle');
+    const possiblePaths = [
+      path.join(process.cwd(), 'api', 'mahira_ecommerce.db'),
+      path.join(__dirname, 'mahira_ecommerce.db'),
+      path.join(process.cwd(), 'mahira_ecommerce.db')
+    ];
+    
+    let sourcePath = null;
+    for (const p of possiblePaths) {
+      if (fs.existsSync(p)) {
+        sourcePath = p;
+        break;
+      }
+    }
+
+    if (sourcePath) {
+      fs.copyFileSync(sourcePath, dbPath);
+      console.log(`Production DB Initialized from ${sourcePath}`);
+    } else {
+      console.error('No source DB found in any of:', possiblePaths);
     }
   } catch (err) {
     console.error('DB Initialization Error:', err);

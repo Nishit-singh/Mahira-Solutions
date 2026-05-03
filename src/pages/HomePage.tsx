@@ -242,7 +242,7 @@ const HomePage: React.FC = () => {
             <div className="space-y-12">
               <div>
                 <span className="text-[11px] font-black uppercase tracking-[0.5em] text-emerald mb-4 block">Get In Touch</span>
-                <h2 className="text-6xl font-black text-emerald-dark uppercase tracking-tighter leading-[0.9] mb-8">
+                <h2 className="text-4xl md:text-6xl font-black text-emerald-dark uppercase tracking-tighter leading-[0.9] mb-8">
                   Connect with our <br /> <span className="text-emerald">Industrial Hub.</span>
                 </h2>
                 <p className="text-text-muted text-lg font-medium leading-relaxed max-w-md italic">
