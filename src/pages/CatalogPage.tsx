@@ -21,20 +21,22 @@ interface OrderDetails {
   file: File | null;
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const CatalogPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch(`${API_URL}/api/products`)
       .then(res => res.json())
       .then(data => setProducts(data));
   }, []);
 
   const handleCheckout = (orderDetails: OrderDetails) => {
     // Logic same as HomePage - could be abstracted to a hook
-    fetch('http://localhost:5000/api/create-payment', {
+    fetch(`${API_URL}/api/create-payment`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: orderDetails.totalPrice })
@@ -58,14 +60,14 @@ const CatalogPage: React.FC = () => {
           formData.append('instructions', orderDetails.instructions);
           if (orderDetails.file) formData.append('designFile', orderDetails.file);
 
-          fetch('http://localhost:5000/api/verify-payment', { method: 'POST', body: formData })
+          fetch(`${API_URL}/api/verify-payment`, { method: 'POST', body: formData })
           .then(res => res.json())
           .then(() => {
             alert('Order Placed Successfully!');
             setIsModalOpen(false);
           });
         },
-        theme: { color: '#006B5E' }
+        theme: { color: '#1e40af' }
       };
       const rzp = new (window as any).Razorpay(options);
       rzp.open();

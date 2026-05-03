@@ -24,6 +24,8 @@ interface OrderDetails {
   file: File | null;
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -32,7 +34,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch(`${API_URL}/api/products`)
       .then(res => {
         if (!res.ok) throw new Error('Network response was not ok');
         return res.json();
@@ -42,7 +44,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   const handleCheckout = (orderDetails: OrderDetails) => {
-    fetch('http://localhost:5000/api/create-payment', {
+    fetch(`${API_URL}/api/create-payment`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: orderDetails.totalPrice })
@@ -70,7 +72,7 @@ const HomePage: React.FC = () => {
           formData.append('instructions', orderDetails.instructions);
           if (orderDetails.file) formData.append('designFile', orderDetails.file);
 
-          fetch('http://localhost:5000/api/verify-payment', {
+          fetch(`${API_URL}/api/verify-payment`, {
             method: 'POST',
             body: formData
           })
@@ -87,7 +89,7 @@ const HomePage: React.FC = () => {
           .catch(err => alert('Verification Error: ' + err.message));
         },
         prefill: { name: '', email: '', contact: '' },
-        theme: { color: '#006B5E' }
+        theme: { color: '#1e40af' }
       };
       const rzp = new (window as any).Razorpay(options);
       rzp.on('payment.failed', function (response: any) {
@@ -105,9 +107,9 @@ const HomePage: React.FC = () => {
         <div className="absolute inset-0 bg-geometric"></div>
         <div className="section-container relative z-10 grid lg:grid-cols-2 gap-16 items-center">
           <div className="animate-slide-up">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-emerald leading-[1.1] mb-8 uppercase tracking-tighter">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-text-dark leading-[1.1] mb-8 uppercase tracking-tighter">
               Precision Engineering.<br />
-              <span className="text-emerald-dark">Advanced Printing.</span>
+              <span className="text-emerald">Advanced Printing.</span>
             </h1>
             <p className="text-sm md:text-base font-bold text-text-muted leading-relaxed max-w-md mb-10 uppercase tracking-wider opacity-80">
               Mahira Solutions Enterprises delivers high-end B2B solutions across industrial printing verticals.
@@ -165,12 +167,12 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* PRODUCTS SECTION (PREVIEW) */}
-      <section id="products" className="py-20 bg-off-white">
+      <section id="products" className="py-24 bg-off-white text-text-dark">
         <div className="section-container">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
             <div>
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-emerald mb-4 block">Product Showcase</span>
-              <h2 className="text-5xl font-black text-emerald-dark uppercase tracking-tighter">Core Solutions</h2>
+              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-brand-orange mb-4 block">Trending Now</span>
+              <h2 className="text-5xl font-black text-text-dark uppercase tracking-tighter">Most Viewed Products</h2>
             </div>
             <button onClick={() => navigate('/catalog')} className="text-xs font-black uppercase tracking-widest text-emerald border-b-2 border-emerald pb-2">Browse All Products</button>
           </div>
@@ -211,7 +213,7 @@ const HomePage: React.FC = () => {
               { rc: "VS", name: "Vikram Singh", role: "CEO, Apex Mfg", text: "Rapid turnaround times and impeccable material quality. They truly understand industrial scale." }
             ].map((rev, i) => (
               <div key={i} className="bg-white p-6 rounded-2xl border-4 border-mint shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                <div className="flex gap-1 text-amber-400 mb-6">
+                <div className="flex gap-1 text-brand-orange mb-6">
                   {[...Array(5)].map((_, j) => <span key={j} className="material-symbols-outlined text-base fill-current">star</span>)}
                 </div>
                 <p className="text-sm font-black leading-relaxed mb-8 uppercase tracking-wide italic text-emerald-dark">

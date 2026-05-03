@@ -22,23 +22,25 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-emerald selection:text-white">
-      <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-emerald-light">
+      <header className="fixed top-0 left-0 w-full z-50 bg-[#09090b]/95 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-6 cursor-pointer">
-            <div className="w-12 h-12 bg-emerald flex items-center justify-center text-white">
+            <div className="w-12 h-12 bg-emerald flex items-center justify-center text-white rounded-lg shadow-lg shadow-emerald/20">
               <span className="material-symbols-outlined text-2xl">print</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-black text-emerald tracking-tighter leading-none">MAHIRA</span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted">Solutions Enterprises</span>
+              <span className="text-2xl font-black text-white tracking-tighter leading-none">
+                MAHIRA <span className="text-emerald">SOLUTIONS</span>
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">Enterprises</span>
             </div>
           </Link>
 
           <nav className="hidden md:flex items-center gap-12">
-            <Link to="/#home" className="text-xs font-black uppercase tracking-widest text-emerald/60 hover:text-emerald transition-colors">Home</Link>
-            <Link to="/#about" className="text-xs font-black uppercase tracking-widest text-emerald/60 hover:text-emerald transition-colors">About Us</Link>
-            <Link to="/catalog" className="text-xs font-black uppercase tracking-widest text-emerald/60 hover:text-emerald transition-colors">Catalog</Link>
-            <Link to="/#contact" className="text-xs font-black uppercase tracking-widest text-emerald/60 hover:text-emerald transition-colors">Contact</Link>
+            <Link to="/#home" className="text-xs font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors">Home</Link>
+            <Link to="/#about" className="text-xs font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors">About Us</Link>
+            <Link to="/catalog" className="text-xs font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors">Catalog</Link>
+            <Link to="/#contact" className="text-xs font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors">Contact</Link>
           </nav>
 
           <div className="flex items-center gap-6">
@@ -47,7 +49,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 DASHBOARD
               </button>
             ) : (
-              <button onClick={() => navigate('/login')} className="btn-outline py-3 px-8 text-[10px]">
+              <button onClick={() => navigate('/login')} className="btn-outline border-white/20 text-white hover:bg-white/10 py-3 px-8 text-[10px]">
                 LOGIN
               </button>
             )}
@@ -59,7 +61,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {children}
       </main>
 
-      <footer className="bg-emerald-dark text-white py-20">
+      <footer className="bg-[#09090b] text-white py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-24 mb-16">
             <div>

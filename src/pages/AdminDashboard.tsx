@@ -24,6 +24,8 @@ interface Product {
   min_quantity: number;
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'orders' | 'products'>('orders');
   const [orders, setOrders] = useState<Order[]>([]);
@@ -54,7 +56,7 @@ const AdminDashboard: React.FC = () => {
     const endpoint = activeTab === 'orders' ? '/api/admin/orders' : '/api/products';
     
     try {
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      const res = await fetch(`${API_URL}${endpoint}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.status === 401 || res.status === 403) {
@@ -92,7 +94,7 @@ const AdminDashboard: React.FC = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      const res = await fetch(`${API_URL}${endpoint}`, {
         method,
         headers: { 
           'Authorization': `Bearer ${token}` 
@@ -114,7 +116,7 @@ const AdminDashboard: React.FC = () => {
     if (!window.confirm('Confirm deletion of this product?')) return;
     const token = localStorage.getItem('adminToken');
     try {
-      await fetch(`http://localhost:5000/api/admin/products/${id}`, {
+      await fetch(`${API_URL}/api/admin/products/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -194,7 +196,7 @@ const AdminDashboard: React.FC = () => {
                     <td className="p-6 uppercase">{order.product_name} <span className="opacity-40">x{order.quantity}</span></td>
                     <td className="p-6 font-black text-emerald">₹{order.amount}</td>
                     <td className="p-6">
-                      {order.file_url ? <a href={`http://localhost:5000${order.file_url}`} target="_blank" rel="noreferrer" className="text-emerald border-b border-emerald uppercase text-[10px]">Source File</a> : 'No Design'}
+                      {order.file_url ? <a href={`${API_URL}${order.file_url}`} target="_blank" rel="noreferrer" className="text-emerald border-b border-emerald uppercase text-[10px]">Source File</a> : 'No Design'}
                     </td>
                   </tr>
                 ))}
@@ -219,7 +221,7 @@ const AdminDashboard: React.FC = () => {
                 <div key={product.id} className="bg-white p-6 shadow-xl border-t-4 border-emerald group">
                   <div className="aspect-square bg-off-white mb-4 overflow-hidden border border-emerald-light">
                     {product.image_url ? (
-                      <img src={`http://localhost:5000${product.image_url}`} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                      <img src={`${API_URL}${product.image_url}`} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-emerald/20">
                         <span className="material-symbols-outlined text-4xl">image</span>

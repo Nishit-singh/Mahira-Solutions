@@ -5,13 +5,14 @@
 @tailwind utilities;
 
 :root {
-  --emerald: #006B5E;
-  --emerald-dark: #004D44;
-  --emerald-light: #E0F7F4;
-  --mint: #B2DFDB;
-  --off-white: #F9FBFA;
-  --text-dark: #0A1F1C;
-  --text-muted: #546E6A;
+  --emerald: #1e40af;
+  --emerald-dark: #172554;
+  --emerald-light: #eff6ff;
+  --mint: #dbeafe;
+  --orange: #f97316;
+  --off-white: #ffffff;
+  --text-dark: #09090b;
+  --text-muted: #71717a;
 }
 
 @layer base {

@@ -8,14 +8,15 @@ export default {
     extend: {
       colors: {
         emerald: {
-          DEFAULT: '#006B5E',
-          dark: '#004D44',
-          light: '#E0F7F4',
+          DEFAULT: '#1e40af', // Deep Industrial Blue (Blue-800)
+          dark: '#172554',    // Midnight Navy (Blue-950)
+          light: '#eff6ff',   // Very Light Blue
         },
-        mint: '#B2DFDB',
-        'off-white': '#F9FBFA',
-        'text-dark': '#0A1F1C',
-        'text-muted': '#546E6A',
+        mint: '#dbeafe',      // Light Blue accent
+        'brand-orange': '#f97316', // Industrial Orange
+        'off-white': '#ffffff',
+        'text-dark': '#09090b', // Deep Black
+        'text-muted': '#71717a', // Zinc Muted
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'sans-serif'],

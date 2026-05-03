@@ -15,20 +15,22 @@ interface ProductCardProps {
   onSelect: (product: Product) => void;
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) => {
   return (
     <div className="group bg-white border border-emerald-light rounded-none overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-full">
       {/* Top Image Section */}
       <div className="relative aspect-video overflow-hidden bg-off-white">
         <img
-          src={product.image_url?.startsWith('/uploads') ? `http://localhost:5000${product.image_url}` : product.image_url}
+          src={product.image_url?.startsWith('/uploads') ? `${API_URL}${product.image_url}` : product.image_url}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={(e) => {
             (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800';
           }}
         />
-        <div className="absolute top-4 left-4 bg-emerald text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 shadow-md">
+        <div className="absolute top-4 left-4 bg-text-dark text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 shadow-md">
           {product.category}
         </div>
       </div>
