@@ -1,6 +1,9 @@
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcryptjs');
-const db = new sqlite3.Database('./mahira_ecommerce.db');
+const path = require('path');
+const isProduction = process.env.NODE_ENV === 'production';
+const dbPath = isProduction ? path.join('/tmp', 'mahira_ecommerce.db') : './mahira_ecommerce.db';
+const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
   // PRODUCTS TABLE
