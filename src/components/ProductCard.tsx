@@ -15,7 +15,7 @@ interface ProductCardProps {
   onSelect: (product: Product) => void;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || '';
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) => {
   return (
