@@ -70,6 +70,19 @@ app.get('/api/products', (req, res) => {
   });
 });
 
+app.get('/api/categories', (req, res) => {
+  // Get unique categories and the image of the first product in that category
+  const sql = `
+    SELECT category, image_url 
+    FROM products 
+    GROUP BY category
+  `;
+  db.all(sql, [], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(rows);
+  });
+});
+
 app.post('/api/create-payment', async (req, res) => {
   const { amount } = req.body;
   const options = {

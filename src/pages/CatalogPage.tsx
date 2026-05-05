@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 
@@ -10,6 +11,11 @@ interface Product {
   category: string;
   image_url: string;
   min_quantity: number;
+}
+
+interface Category {
+  category: string;
+  image_url: string;
 }
 
 interface OrderDetails {
@@ -25,17 +31,24 @@ const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://l
 
 const CatalogPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const activeCategory = searchParams.get('category');
 
   useEffect(() => {
     fetch(`${API_URL}/api/products`)
       .then(res => res.json())
       .then(data => setProducts(data));
+
+    fetch(`${API_URL}/api/categories`)
+      .then(res => res.json())
+      .then(data => setCategories(data));
   }, []);
 
   const handleCheckout = (orderDetails: OrderDetails) => {
-    // Logic same as HomePage - could be abstracted to a hook
     fetch(`${API_URL}/api/create-payment`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -74,25 +87,74 @@ const CatalogPage: React.FC = () => {
     });
   };
 
+  const filteredProducts = activeCategory 
+    ? products.filter(p => p.category === activeCategory)
+    : products;
+
   return (
     <div className="bg-off-white min-h-screen py-20">
       <div className="section-container">
-        <div className="mb-12 border-l-8 border-emerald pl-8">
-          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald mb-2 block">Complete Inventory</span>
-          <h1 className="text-6xl md:text-7xl font-black text-emerald-dark uppercase tracking-tighter leading-none">
-            Printing<br />Hub
-          </h1>
+        <div className="mb-12 border-l-8 border-emerald pl-8 flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald mb-2 block">
+              {activeCategory ? `Category: ${activeCategory}` : 'Complete Inventory'}
+            </span>
+            <h1 className="text-6xl md:text-7xl font-black text-emerald-dark uppercase tracking-tighter leading-none">
+              Printing<br />Hub
+            </h1>
+          </div>
+          {activeCategory && (
+            <button 
+              onClick={() => setSearchParams({})}
+              className="btn-outline !py-3 !px-6 flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-sm">arrow_back</span>
+              Back to Categories
+            </button>
+          )}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {products.map(product => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onSelect={(p) => { setSelectedProduct(p); setIsModalOpen(true); }}
-            />
-          ))}
-        </div>
+        {!activeCategory ? (
+          /* Category Folders View */
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-16">
+            {categories.map((cat) => (
+              <div 
+                key={cat.category}
+                onClick={() => setSearchParams({ category: cat.category })}
+                className="folder-card group cursor-pointer bg-emerald h-80 flex flex-col justify-end p-8 border-4 border-emerald-dark shadow-2xl"
+              >
+                <div className="folder-tab"></div>
+                <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-30 transition-opacity">
+                  <span className="material-symbols-outlined text-8xl text-white">folder_open</span>
+                </div>
+                
+                <div className="relative z-10">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-mint/60 block mb-2">Category</span>
+                  <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none">
+                    {cat.category}
+                  </h3>
+                  <div className="mt-6 flex items-center gap-3 text-mint group-hover:gap-5 transition-all">
+                    <span className="text-[11px] font-black uppercase tracking-widest">Explore Products</span>
+                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  </div>
+                </div>
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-dark/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* Products Grid View */
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 animate-slide-up">
+            {filteredProducts.map(product => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onSelect={(p) => { setSelectedProduct(p); setIsModalOpen(true); }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {isModalOpen && selectedProduct && (

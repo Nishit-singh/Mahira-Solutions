@@ -4,6 +4,7 @@ import ProductModal from '../components/ProductModal';
 import QueryModal from '../components/QueryModal';
 import { useNavigate } from 'react-router-dom';
 import heroImage from '../assets/hero.jpg';
+import ProductTicker from '../components/ProductTicker';
 
 interface Product {
   id: number;
@@ -130,6 +131,8 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <ProductTicker />
 
       {/* ABOUT US SECTION */}
       <section id="about" className="py-20 bg-emerald text-white">
