@@ -19,6 +19,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
 
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', mode: process.env.NODE_ENV, time: new Date() });
+});
+
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: (req, file, cb) => {
