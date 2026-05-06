@@ -32,6 +32,8 @@ const AdminDashboard: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showProductModal, setShowProductModal] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [productToDelete, setProductToDelete] = useState<number | null>(null);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [productImage, setProductImage] = useState<File | null>(null);
   const navigate = useNavigate();
@@ -112,14 +114,21 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  const deleteProduct = async (id: number) => {
-    if (!window.confirm('Confirm deletion of this product?')) return;
+  const confirmDelete = (id: number) => {
+    setProductToDelete(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const executeDelete = async () => {
+    if (!productToDelete) return;
     const token = localStorage.getItem('adminToken');
     try {
-      await fetch(`${API_URL}/api/admin/products/${id}`, {
+      await fetch(`${API_URL}/api/admin/products/${productToDelete}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
+      setShowDeleteConfirm(false);
+      setProductToDelete(null);
       fetchData();
     } catch (err) {
       alert('Delete failed');
@@ -246,7 +255,7 @@ const AdminDashboard: React.FC = () => {
                     <span className="text-[10px] md:text-base text-emerald font-black">₹{product.price}</span>
                     <div className="flex gap-1 md:gap-2 w-full md:w-auto">
                       <button onClick={() => openEdit(product)} className="flex-1 md:flex-none text-[8px] md:text-[9px] font-black uppercase tracking-widest text-emerald hover:bg-emerald hover:text-white p-2 border border-emerald transition-all">Edit</button>
-                      <button onClick={() => deleteProduct(product.id)} className="flex-1 md:flex-none text-[8px] md:text-[9px] font-black uppercase tracking-widest text-red-600 hover:bg-red-600 hover:text-white p-2 border border-red-600 transition-all">Delete</button>
+                      <button onClick={() => confirmDelete(product.id)} className="flex-1 md:flex-none text-[8px] md:text-[9px] font-black uppercase tracking-widest text-red-600 hover:bg-red-600 hover:text-white p-2 border border-red-600 transition-all">Delete</button>
                     </div>
                   </div>
                 </div>
@@ -316,6 +325,37 @@ const AdminDashboard: React.FC = () => {
                   {editingProduct ? 'Save Modifications' : 'Initialize Solution'}
                 </button>
               </form>
+            </div>
+          </div>
+        )}
+        {/* DELETE CONFIRMATION MODAL */}
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-6">
+            <div className="absolute inset-0 bg-emerald-dark/80 backdrop-blur-md" onClick={() => setShowDeleteConfirm(false)}></div>
+            <div className="relative w-full max-w-sm bg-white p-10 shadow-2xl border-t-8 border-red-600 animate-slide-down">
+              <div className="text-center">
+                <div className="w-20 h-20 bg-red-600/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <span className="material-symbols-outlined text-4xl text-red-600">delete_forever</span>
+                </div>
+                <h2 className="text-2xl font-black text-emerald-dark uppercase tracking-tighter mb-4">Confirm Deletion</h2>
+                <p className="text-[10px] font-bold text-text-muted uppercase leading-relaxed tracking-widest mb-8">
+                  This action is irreversible. The selected industrial solution will be permanently removed from the active inventory.
+                </p>
+                <div className="flex flex-col gap-3">
+                  <button 
+                    onClick={executeDelete}
+                    className="w-full py-4 bg-red-600 text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-red-600/20 hover:bg-red-700 transition-all"
+                  >
+                    Permanently Delete
+                  </button>
+                  <button 
+                    onClick={() => setShowDeleteConfirm(false)}
+                    className="w-full py-4 bg-white text-emerald-dark border-2 border-emerald-light text-[10px] font-black uppercase tracking-[0.2em] hover:bg-emerald-light/10 transition-all"
+                  >
+                    Cancel Action
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}
