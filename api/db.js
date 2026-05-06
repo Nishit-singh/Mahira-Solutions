@@ -1,7 +1,12 @@
-const sqlite3 = require('sqlite3').verbose();
-const bcrypt = require('bcryptjs');
-const fs = require('fs');
-const path = require('path');
+import sqlite3 from 'sqlite3';
+import bcrypt from 'bcryptjs';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const isProduction = process.env.NODE_ENV === 'production';
 const dbPath = isProduction ? path.join('/tmp', 'mahira_ecommerce.db') : path.join(__dirname, 'mahira_ecommerce.db');
 
@@ -91,4 +96,4 @@ db.serialize(() => {
 });
 
 console.log('Logistics Database Ready.');
-module.exports = db;
+export default db;
