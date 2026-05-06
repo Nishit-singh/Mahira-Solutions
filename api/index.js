@@ -29,7 +29,13 @@ app.get('/api/health', (req, res) => {
 });
 
 const storage = multer.diskStorage({
-  destination: './uploads/',
+  destination: (req, file, cb) => {
+    const uploadPath = process.env.NODE_ENV === 'production' ? '/tmp/uploads' : './uploads';
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
+  },
   filename: (req, file, cb) => {
     cb(null, 'design-' + Date.now() + path.extname(file.originalname));
   }

@@ -1,4 +1,5 @@
-import sqlite3 from 'sqlite3';
+import sqlite3pkg from 'sqlite3';
+const sqlite3 = sqlite3pkg.verbose();
 import bcrypt from 'bcryptjs';
 import fs from 'fs';
 import path from 'path';
