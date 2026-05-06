@@ -104,7 +104,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="bg-off-white">
       {/* HERO SECTION */}
-      <section id="home" className="relative min-h-[75vh] flex items-center overflow-hidden bg-white py-12">
+      <section id="home" className="relative min-h-[85vh] flex items-center overflow-hidden bg-white pt-20 pb-32">
         <div className="absolute inset-0 bg-geometric"></div>
         <div className="section-container relative z-10 grid lg:grid-cols-2 gap-16 items-center">
           <div className="animate-slide-up">
@@ -130,9 +130,12 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
 
-      <ProductTicker />
+        {/* Ticker at the bottom of hero */}
+        <div className="absolute bottom-0 left-0 w-full z-20">
+          <ProductTicker products={products} />
+        </div>
+      </section>
 
       {/* ABOUT US SECTION */}
       <section id="about" className="py-20 bg-emerald text-white">
@@ -180,7 +183,7 @@ const HomePage: React.FC = () => {
             <button onClick={() => navigate('/catalog')} className="text-xs font-black uppercase tracking-widest text-emerald border-b-2 border-emerald pb-2">Browse All Products</button>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 mb-16">
             {products.slice(0, 3).map(product => (
               <ProductCard
                 key={product.id}
@@ -209,24 +212,24 @@ const HomePage: React.FC = () => {
             <h2 className="text-3xl font-black uppercase tracking-tighter">Client Feedback</h2>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-3 gap-4 md:gap-6">
             {[
               { rc: "RC", name: "Robert Chen", role: "Logistics Director", text: "The precision in their ID tag printing is unmatched. A critical partner for our security logistics." },
               { rc: "SW", name: "Sarah Williams", role: "Operations Lead", text: "Bulk apparel printing with zero defects. Mahira has completely streamlined our internal branding." },
               { rc: "VS", name: "Vikram Singh", role: "CEO, Apex Mfg", text: "Rapid turnaround times and impeccable material quality. They truly understand industrial scale." }
             ].map((rev, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl border-4 border-mint shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                <div className="flex gap-1 text-brand-orange mb-6">
-                  {[...Array(5)].map((_, j) => <span key={j} className="material-symbols-outlined text-base fill-current">star</span>)}
+              <div key={i} className="bg-white p-3 md:p-6 rounded-xl md:rounded-2xl border-2 md:border-4 border-mint shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div className="flex gap-0.5 text-brand-orange mb-3 md:mb-6">
+                  {[...Array(5)].map((_, j) => <span key={j} className="material-symbols-outlined text-[8px] md:text-base fill-current">star</span>)}
                 </div>
-                <p className="text-sm font-black leading-relaxed mb-8 uppercase tracking-wide italic text-emerald-dark">
+                <p className="text-[7px] md:text-sm font-black leading-tight md:leading-relaxed mb-4 md:mb-8 uppercase tracking-wide italic text-emerald-dark line-clamp-4 md:line-clamp-none">
                   "{rev.text}"
                 </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-emerald rounded-full flex items-center justify-center text-[10px] font-black text-white">{rev.rc}</div>
+                <div className="flex items-center gap-2 md:gap-4">
+                  <div className="w-6 h-6 md:w-10 md:h-10 bg-emerald rounded-full flex items-center justify-center text-[6px] md:text-[10px] font-black text-white">{rev.rc}</div>
                   <div>
-                    <span className="text-xs font-black block uppercase text-emerald-dark">{rev.name}</span>
-                    <span className="text-[9px] font-black uppercase tracking-widest text-emerald/40">{rev.role}</span>
+                    <span className="text-[7px] md:text-xs font-black block uppercase text-emerald-dark leading-none mb-0.5">{rev.name}</span>
+                    <span className="hidden md:block text-[9px] font-black uppercase tracking-widest text-emerald/40">{rev.role}</span>
                   </div>
                 </div>
               </div>

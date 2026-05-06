@@ -7,22 +7,17 @@ interface Product {
   category: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
+interface ProductTickerProps {
+  products: Product[];
+}
 
-const ProductTicker: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+const ProductTicker: React.FC<ProductTickerProps> = ({ products }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch(`${API_URL}/api/products`)
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.error('Error fetching products:', err));
-  }, []);
 
   if (products.length === 0) return null;
 
-  // Triple the products to ensure a seamless infinite scroll even on large screens
+  // Duplicate the products to ensure a seamless infinite scroll
+  // We need enough items to fill the width twice for the animation to work correctly
   const displayProducts = [...products, ...products, ...products, ...products];
 
   return (

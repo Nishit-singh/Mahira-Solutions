@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="min-h-screen flex flex-col selection:bg-emerald selection:text-white">
       <header className="fixed top-0 left-0 w-full z-50 bg-[#09090b]/95 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-6 cursor-pointer">
+          <Link to="/#home" className="flex items-center gap-6 cursor-pointer">
             <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald flex items-center justify-center text-white rounded-lg shadow-lg shadow-emerald/20">
               <span className="material-symbols-outlined text-xl md:text-2xl">print</span>
             </div>

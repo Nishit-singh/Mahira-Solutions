@@ -174,8 +174,19 @@ const AdminDashboard: React.FC = () => {
 
         {/* ORDERS TAB */}
         {activeTab === 'orders' && (
-          <div className="overflow-x-auto shadow-2xl">
-            <table className="w-full bg-white border-collapse">
+          <div className="shadow-2xl">
+            {/* Mobile Alert */}
+            <div className="block md:hidden bg-emerald/5 border-2 border-emerald p-12 text-center rounded-2xl">
+              <span className="material-symbols-outlined text-5xl text-emerald mb-6">desktop_windows</span>
+              <h3 className="text-xl font-black text-emerald-dark uppercase tracking-tighter mb-4">Desktop Access Required</h3>
+              <p className="text-[10px] font-bold text-text-muted uppercase leading-relaxed tracking-widest">
+                To view and manage detailed order logistics, please access the dashboard from a laptop or desktop computer.
+              </p>
+            </div>
+
+            {/* Desktop Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full bg-white border-collapse">
               <thead>
                 <tr className="bg-emerald text-white text-[10px] font-black uppercase tracking-widest text-left">
                   <th className="p-6">Client</th>
@@ -203,6 +214,7 @@ const AdminDashboard: React.FC = () => {
               </tbody>
             </table>
           </div>
+        </div>
         )}
 
         {/* PRODUCTS TAB */}
@@ -216,25 +228,25 @@ const AdminDashboard: React.FC = () => {
                 Add New Solution
               </button>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {products.map(product => (
-                <div key={product.id} className="bg-white p-6 shadow-xl border-t-4 border-emerald group">
-                  <div className="aspect-square bg-off-white mb-4 overflow-hidden border border-emerald-light">
+                <div key={product.id} className="bg-white p-3 md:p-6 shadow-xl border-t-4 border-emerald group">
+                  <div className="aspect-square bg-off-white mb-3 md:mb-4 overflow-hidden border border-emerald-light">
                     {product.image_url ? (
                       <img src={`${API_URL}${product.image_url}`} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-emerald/20">
-                        <span className="material-symbols-outlined text-4xl">image</span>
+                        <span className="material-symbols-outlined text-2xl md:text-4xl">image</span>
                       </div>
                     )}
                   </div>
-                  <h3 className="text-xl font-black text-emerald-dark uppercase mb-2 tracking-tighter">{product.name}</h3>
-                  <p className="text-[10px] font-bold text-text-muted mb-4 uppercase line-clamp-1">{product.description}</p>
-                  <div className="flex justify-between items-center pt-4 border-t border-emerald-light">
-                    <span className="text-emerald font-black">₹{product.price}</span>
-                    <div className="flex gap-2">
-                      <button onClick={() => openEdit(product)} className="text-[9px] font-black uppercase tracking-widest text-emerald hover:bg-emerald hover:text-white p-2 border border-emerald transition-all">Edit</button>
-                      <button onClick={() => deleteProduct(product.id)} className="text-[9px] font-black uppercase tracking-widest text-red-600 hover:bg-red-600 hover:text-white p-2 border border-red-600 transition-all">Delete</button>
+                  <h3 className="text-sm md:text-xl font-black text-emerald-dark uppercase mb-1 md:mb-2 tracking-tighter line-clamp-1">{product.name}</h3>
+                  <p className="text-[8px] md:text-[10px] font-bold text-text-muted mb-3 md:mb-4 uppercase line-clamp-1">{product.description}</p>
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-3 md:pt-4 border-t border-emerald-light gap-2">
+                    <span className="text-[10px] md:text-base text-emerald font-black">₹{product.price}</span>
+                    <div className="flex gap-1 md:gap-2 w-full md:w-auto">
+                      <button onClick={() => openEdit(product)} className="flex-1 md:flex-none text-[8px] md:text-[9px] font-black uppercase tracking-widest text-emerald hover:bg-emerald hover:text-white p-2 border border-emerald transition-all">Edit</button>
+                      <button onClick={() => deleteProduct(product.id)} className="flex-1 md:flex-none text-[8px] md:text-[9px] font-black uppercase tracking-widest text-red-600 hover:bg-red-600 hover:text-white p-2 border border-red-600 transition-all">Delete</button>
                     </div>
                   </div>
                 </div>

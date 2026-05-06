@@ -45,32 +45,34 @@ const AuthPage: React.FC = () => {
         </button>
 
         <div className="mb-10 text-center">
-          <span className="text-[10px] font-black uppercase tracking-[0.5em] mb-2 block text-mint">Authorized Personnel Only</span>
-          <h1 className="text-5xl font-black uppercase tracking-tighter leading-none text-white">
+          <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] mb-3 block text-mint opacity-80 leading-relaxed px-4">
+            Authorized Personnel Only
+          </span>
+          <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none text-white break-words">
             MANAGEMENT
           </h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-widest text-mint/60">Admin Identifier (Email/Phone)</label>
+            <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-mint/60">Admin Identifier</label>
             <input 
               required
               value={formData.identifier}
               onChange={e => setFormData({...formData, identifier: e.target.value})}
-              className="w-full p-5 bg-white border-2 border-transparent focus:border-mint outline-none font-bold text-sm rounded-none text-emerald-dark"
-              placeholder="YOUR CREDENTIALS"
+              className="w-full p-4 md:p-5 bg-white border-2 border-transparent focus:border-mint outline-none font-bold text-xs md:text-sm rounded-none text-emerald-dark transition-all"
+              placeholder="EMAIL OR PHONE"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-widest text-mint/60">Security Clearance Key</label>
+            <label className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-mint/60">Security Key</label>
             <input 
               type="password"
               required
               value={formData.password}
               onChange={e => setFormData({...formData, password: e.target.value})}
-              className="w-full p-5 bg-white rounded-none outline-none font-bold text-sm text-emerald-dark border-2 border-transparent focus:border-mint"
+              className="w-full p-4 md:p-5 bg-white rounded-none outline-none font-bold text-xs md:text-sm text-emerald-dark border-2 border-transparent focus:border-mint transition-all"
               placeholder="••••••••"
             />
           </div>
