@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
+import productsData from '../data/products.json';
 
 interface Product {
   id: number;
@@ -15,7 +16,6 @@ interface Product {
 
 interface Category {
   category: string;
-  image_url: string;
 }
 
 interface OrderDetails {
@@ -27,10 +27,8 @@ interface OrderDetails {
   file: File | null;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
-
 const CatalogPage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(productsData);
   const [categories, setCategories] = useState<Category[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -41,55 +39,24 @@ const CatalogPage: React.FC = () => {
   const activeCategory = searchParams.get('category');
 
   useEffect(() => {
-    fetch(`${API_URL}/api/products`)
-      .then(res => res.json())
-      .then(data => {
-        setProducts(data);
-        // Derive unique categories dynamically and normalize them
-        const uniqueCats = Array.from(new Set(data.map((p: Product) => p.category.trim().toUpperCase())))
-          .map(catName => ({ category: catName as string }));
-        setCategories(uniqueCats as any);
-      })
-      .catch(err => console.error('Error fetching products:', err));
+    // Derive unique categories dynamically and normalize them
+    const uniqueCats = Array.from(new Set(productsData.map((p: any) => p.category.trim().toUpperCase())))
+      .map(catName => ({ category: catName as string }));
+    setCategories(uniqueCats as any);
   }, []);
 
   const handleCheckout = (orderDetails: OrderDetails) => {
-    fetch(`${API_URL}/api/create-payment`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: orderDetails.totalPrice })
-    })
-    .then(res => res.json())
-    .then(order => {
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY || 'rzp_test_mock',
-        amount: order.amount,
-        currency: order.currency,
-        name: 'Mahira Solutions',
-        order_id: order.id,
-        handler: function (response: any) {
-          const formData = new FormData();
-          formData.append('razorpay_order_id', response.razorpay_order_id);
-          formData.append('razorpay_payment_id', response.razorpay_payment_id);
-          formData.append('razorpay_signature', response.razorpay_signature);
-          formData.append('product_name', orderDetails.productName);
-          formData.append('quantity', String(orderDetails.quantity));
-          formData.append('amount', String(orderDetails.totalPrice));
-          formData.append('instructions', orderDetails.instructions);
-          if (orderDetails.file) formData.append('designFile', orderDetails.file);
-
-          fetch(`${API_URL}/api/verify-payment`, { method: 'POST', body: formData })
-          .then(res => res.json())
-          .then(() => {
-            alert('Order Placed Successfully!');
-            setIsModalOpen(false);
-          });
-        },
-        theme: { color: '#1e40af' }
-      };
-      const rzp = new (window as any).Razorpay(options);
-      rzp.open();
-    });
+    const phone = '916386658443';
+    const message = `*New Order from Mahira Web*\n\n` +
+      `*Product:* ${orderDetails.productName}\n` +
+      `*Quantity:* ${orderDetails.quantity}\n` +
+      `*Total Price:* ₹${orderDetails.totalPrice}\n` +
+      `*Instructions:* ${orderDetails.instructions || 'N/A'}\n\n` +
+      `_Note: Please share the design file if attached in the form._`;
+    
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    setIsModalOpen(false);
   };
 
   const filteredProducts = products.filter(p => {

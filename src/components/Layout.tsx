@@ -35,15 +35,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           <div className="flex items-center gap-4 md:gap-6">
             <div className="hidden sm:block">
-              {localStorage.getItem('adminToken') ? (
-                <button onClick={() => navigate('/admin')} className="btn-primary py-3 px-8 text-[10px]">
-                  DASHBOARD
-                </button>
-              ) : (
-                <button onClick={() => navigate('/login')} className="btn-outline border-white/20 text-white hover:bg-white/10 py-3 px-8 text-[10px]">
-                  LOGIN
-                </button>
-              )}
+              <Link to="/catalog" className="btn-primary py-3 px-8 text-[10px]">
+                ORDER NOW
+              </Link>
             </div>
             
             {/* Mobile Menu Button */}
@@ -67,15 +61,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Link to="/catalog" onClick={() => setIsMenuOpen(false)} className="text-xs font-black uppercase tracking-widest text-white/60 hover:text-white p-4 bg-white/5">Catalog</Link>
               <Link to="/#contact" onClick={() => setIsMenuOpen(false)} className="text-xs font-black uppercase tracking-widest text-white/60 hover:text-white p-4 bg-white/5">Contact</Link>
               <div className="pt-4 border-t border-white/10 flex gap-4">
-                {localStorage.getItem('adminToken') ? (
-                  <button onClick={() => { navigate('/admin'); setIsMenuOpen(false); }} className="flex-1 btn-primary py-4 text-[10px]">
-                    DASHBOARD
-                  </button>
-                ) : (
-                  <button onClick={() => { navigate('/login'); setIsMenuOpen(false); }} className="flex-1 btn-outline border-white/20 text-white py-4 text-[10px]">
-                    LOGIN
-                  </button>
-                )}
+                <Link to="/catalog" onClick={() => setIsMenuOpen(false)} className="flex-1 btn-primary py-4 text-[10px] text-center">
+                  ORDER NOW
+                </Link>
               </div>
             </nav>
           </div>
@@ -119,7 +107,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">
               © 2026 Mahira Solutions Enterprises. Industrial Printing Hub.
             </p>
-            <Link to="/login" className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 hover:text-white transition-colors">Admin Access</Link>
           </div>
         </div>
       </footer>

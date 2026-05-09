@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import QueryModal from '../components/QueryModal';
 import { useNavigate } from 'react-router-dom';
 import heroImage from '../assets/hero.jpg';
 import ProductTicker from '../components/ProductTicker';
+import productsData from '../data/products.json';
 
 interface Product {
   id: number;
@@ -25,80 +26,26 @@ interface OrderDetails {
   file: File | null;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000' : '');
-
 const HomePage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(productsData);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isQueryModalOpen, setIsQueryModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(`${API_URL}/api/products`)
-      .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
-      .then(data => setProducts(Array.isArray(data) ? data : []))
-      .catch(err => console.error('Failed to fetch products:', err));
-  }, []);
-
   const handleCheckout = (orderDetails: OrderDetails) => {
-    fetch(`${API_URL}/api/create-payment`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: orderDetails.totalPrice })
-    })
-    .then(res => {
-      if (!res.ok) throw new Error('Failed to create payment order');
-      return res.json();
-    })
-    .then(order => {
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY || 'rzp_test_mock',
-        amount: order.amount,
-        currency: order.currency,
-        name: 'Mahira Solutions',
-        description: `Order for ${orderDetails.productName}`,
-        order_id: order.id,
-        handler: function (response: any) {
-          const formData = new FormData();
-          formData.append('razorpay_order_id', response.razorpay_order_id);
-          formData.append('razorpay_payment_id', response.razorpay_payment_id);
-          formData.append('razorpay_signature', response.razorpay_signature);
-          formData.append('product_name', orderDetails.productName);
-          formData.append('quantity', String(orderDetails.quantity));
-          formData.append('amount', String(orderDetails.totalPrice));
-          formData.append('instructions', orderDetails.instructions);
-          if (orderDetails.file) formData.append('designFile', orderDetails.file);
-
-          fetch(`${API_URL}/api/verify-payment`, {
-            method: 'POST',
-            body: formData
-          })
-          .then(res => res.json())
-          .then(result => {
-            if (result.success) {
-              alert('Payment Successful! Your order has been placed.');
-              setIsModalOpen(false);
-              setSelectedProduct(null);
-            } else {
-              alert('Payment Verification Failed: ' + result.error);
-            }
-          })
-          .catch(err => alert('Verification Error: ' + err.message));
-        },
-        prefill: { name: '', email: '', contact: '' },
-        theme: { color: '#1e40af' }
-      };
-      const rzp = new (window as any).Razorpay(options);
-      rzp.on('payment.failed', function (response: any) {
-        alert('Payment Failed: ' + response.error.description);
-      });
-      rzp.open();
-    })
-    .catch(err => alert('Checkout Error: ' + err.message));
+    const phone = '916386658443';
+    const message = `*New Order from Mahira Web*\n\n` +
+      `*Product:* ${orderDetails.productName}\n` +
+      `*Quantity:* ${orderDetails.quantity}\n` +
+      `*Total Price:* ₹${orderDetails.totalPrice}\n` +
+      `*Instructions:* ${orderDetails.instructions || 'N/A'}\n\n` +
+      `_Note: Please share the design file if attached in the form._`;
+    
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    setIsModalOpen(false);
+    setSelectedProduct(null);
   };
 
   return (
@@ -172,25 +119,45 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* PRODUCTS SECTION (PREVIEW) */}
-      <section id="products" className="py-24 bg-off-white text-text-dark">
+      {/* CATEGORIES SECTION */}
+      <section id="categories" className="py-24 bg-off-white text-text-dark">
         <div className="section-container">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
             <div>
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-brand-orange mb-4 block">Trending Now</span>
-              <h2 className="text-5xl font-black text-text-dark uppercase tracking-tighter">Most Viewed Products</h2>
+              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-emerald mb-4 block">Our Catalog</span>
+              <h2 className="text-5xl font-black text-text-dark uppercase tracking-tighter">Shop by Category</h2>
             </div>
-            <button onClick={() => navigate('/catalog')} className="text-xs font-black uppercase tracking-widest text-emerald border-b-2 border-emerald pb-2">Browse All Products</button>
+            <button onClick={() => navigate('/catalog')} className="text-xs font-black uppercase tracking-widest text-emerald border-b-2 border-emerald pb-2">Browse Full Catalog</button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 mb-16">
-            {products.slice(0, 3).map(product => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onSelect={(p) => { setSelectedProduct(p); setIsModalOpen(true); }}
-              />
-            ))}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 mb-16">
+            {Array.from(new Set(productsData.map(p => p.category))).map(catName => {
+              const representativeProduct = productsData.find(p => p.category === catName);
+              return (
+                <div 
+                  key={catName}
+                  onClick={() => navigate(`/catalog?category=${encodeURIComponent(catName)}`)}
+                  className="group relative aspect-[4/5] overflow-hidden cursor-pointer bg-white border border-emerald-light shadow-lg hover:shadow-2xl transition-all duration-500"
+                >
+                  <img
+                    src={representativeProduct?.image_url}
+                    alt={catName}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-dark/90 via-emerald-dark/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute bottom-0 left-0 w-full p-6 md:p-10">
+                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.3em] text-mint mb-2 block opacity-70 group-hover:opacity-100 transition-opacity">Industrial Solutions</span>
+                    <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-none">
+                      {catName}
+                    </h3>
+                    <div className="mt-6 flex items-center gap-3 text-white/0 group-hover:text-white transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                      <span className="text-[10px] font-black uppercase tracking-widest">Explore Collection</span>
+                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           <div className="text-center">
@@ -198,7 +165,7 @@ const HomePage: React.FC = () => {
               onClick={() => navigate('/catalog')}
               className="btn-primary inline-flex items-center gap-4 py-6 px-16"
             >
-              <span className="text-[10px] font-black uppercase tracking-[0.4em]">View More</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em]">View All Products</span>
             </button>
           </div>
         </div>
