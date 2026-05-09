@@ -28,7 +28,7 @@ interface OrderDetails {
 }
 
 const CatalogPage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>(productsData);
+  const [products] = useState<Product[]>(productsData);
   const [categories, setCategories] = useState<Category[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);

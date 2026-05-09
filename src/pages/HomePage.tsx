@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 import QueryModal from '../components/QueryModal';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +26,7 @@ interface OrderDetails {
 }
 
 const HomePage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>(productsData);
+  const [products] = useState<Product[]>(productsData);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isQueryModalOpen, setIsQueryModalOpen] = useState(false);
